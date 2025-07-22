@@ -2,6 +2,8 @@
 .env
 *.env
 .env.*
+# But allow .env.example
+!.env.example
 
 # User-specific medical content - DO NOT COMMIT
 abstracts/
