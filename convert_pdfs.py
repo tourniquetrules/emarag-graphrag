@@ -48,7 +48,7 @@ def extract_text_from_pdf(pdf_path):
 
 def convert_pdfs_to_text():
     """Convert all PDF abstracts to text files"""
-    abstracts_dir = Path("/home/vboxuser/emarag/abstracts")
+    abstracts_dir = Path("/home/tourniquetrules/emarag/abstracts")
     input_dir = Path("input")
     
     if not abstracts_dir.exists():

@@ -2,6 +2,29 @@
 
 A sophisticated clinical-enhanced Retrieval Augmented Generation (RAG) system specifically designed for emergency medicine, combining **Clinical-BERT**, **GraphRAG knowledge graphs**, **medical spaCy models**, and **conversational LLMs** for evidence-based medical analysis.
 
+## 🔧 Zero-Configuration Setup (NEW!)
+
+For the most reliable setup experience, use our automated configuration scripts:
+
+```bash
+# 1. Validate and fix configuration issues
+python validate_config.py
+
+# 2. Auto-setup environment (creates venv, installs deps, fixes config)
+python setup_environment.py
+
+# 3. Start the system (reliable startup script)
+./start_system.sh
+```
+
+These scripts automatically handle:
+- ✅ Virtual environment creation and activation
+- ✅ Dependency installation with conflict resolution  
+- ✅ Configuration file validation and auto-fixing
+- ✅ Directory structure creation
+- ✅ Environment variable validation
+- ✅ Port conflict resolution
+
 ## ✨ Key Features
 
 - 🧠 **Clinical-BERT Integration**: Medical-domain specialized embeddings (emilyalsentzer/Bio_ClinicalBERT)

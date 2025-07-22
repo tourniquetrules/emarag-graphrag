@@ -81,7 +81,7 @@ def convert_abstracts_to_text():
     import shutil
     
     # Check if abstracts exist
-    abstracts_source = Path("/home/vboxuser/emarag/abstracts")
+    abstracts_source = Path("/home/tourniquetrules/emarag/abstracts")
     input_dir = Path("input")
     
     if not abstracts_source.exists():

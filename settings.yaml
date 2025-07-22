@@ -70,7 +70,7 @@ input:
   file_type: text # or csv
   base_dir: "input"
   file_encoding: utf-8
-  file_pattern: ".*\\.txt$$"
+  file_pattern: ".*\\.txt$"
 
 cache:
   type: file # or blob
@@ -109,6 +109,7 @@ claim_extraction:
   ## llm: override the global llm settings for this task
   ## parallelization: override the global parallelization settings for this task
   ## async_mode: override the global async_mode settings for this task
+  enabled: false
   prompt: "prompts/claim_extraction.txt"
   description: "Any claims or facts that relate to medical conditions, treatments, symptoms, or emergency medicine procedures"
   max_gleanings: 1
