@@ -1,0 +1,108 @@
+name: Clinical RAG Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9, "3.10", "3.11"]
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential
+    
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov
+    
+    - name: Install clinical models (limited for CI)
+      run: |
+        # Install only essential spaCy models for testing
+        pip install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.1/en_core_sci_sm-0.5.1.tar.gz
+    
+    - name: Run tests
+      env:
+        # Use dummy API keys for testing (non-functional)
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY || 'sk-dummy-key-for-testing' }}
+        LM_STUDIO_BASE_URL: http://localhost:1234
+      run: |
+        # Basic import tests
+        python -c "
+        try:
+            from clinical_rag import ClinicalEmbeddingModel, MedicalSpacyProcessor
+            print('✅ Core imports successful')
+        except Exception as e:
+            print(f'❌ Import error: {e}')
+            exit(1)
+        "
+        
+        # Test spaCy model loading
+        python -c "
+        import spacy
+        try:
+            nlp = spacy.load('en_core_sci_sm')
+            print('✅ spaCy medical model loaded')
+        except Exception as e:
+            print(f'⚠️ spaCy model issue: {e}')
+        "
+        
+        # Run pytest if tests exist
+        if [ -d "tests/" ]; then
+          pytest tests/ -v --cov=clinical_rag
+        else
+          echo "No tests directory found, skipping pytest"
+        fi
+    
+    - name: Check code quality
+      run: |
+        # Basic syntax check
+        python -m py_compile clinical_rag.py
+        python -m py_compile graphrag_query.py
+        echo "✅ Code syntax validation passed"
+
+  security-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Run security checks
+      run: |
+        # Check for sensitive files
+        if [ -f ".env" ]; then
+          echo "❌ .env file found in repository"
+          exit 1
+        fi
+        
+        # Check .gitignore coverage
+        if grep -q "\.env" .gitignore; then
+          echo "✅ .env properly ignored"
+        else
+          echo "⚠️ .env should be in .gitignore"
+        fi
+        
+        echo "✅ Security checks passed"

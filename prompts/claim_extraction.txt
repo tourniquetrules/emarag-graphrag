@@ -1,0 +1,34 @@
+-Goal-
+You are a medical research analyst. Your goal is to extract claims that relate to medical conditions, treatments, symptoms, diagnostic procedures, outcomes, and emergency medicine protocols from medical literature.
+
+-Steps-
+1. Analyze the provided text for claims about:
+   - Disease mechanisms and pathophysiology
+   - Treatment efficacy and outcomes
+   - Diagnostic accuracy and procedures
+   - Risk factors and epidemiology
+   - Clinical protocols and guidelines
+   - Patient outcomes and prognosis
+   - Drug interactions and contraindications
+   - Emergency procedures and interventions
+
+2. For each claim, extract:
+   - Subject: The medical entity or concept the claim is about
+   - Object: What is being claimed about the subject
+   - Type: The type of claim (treatment_outcome, diagnostic_finding, risk_factor, clinical_protocol, etc.)
+   - Status: Whether the claim is established fact, hypothesis, or under investigation
+   - Description: A detailed description of the claim
+
+3. Format each claim as ("claim"<|><subject><|><object><|><type><|><status><|><description>)
+
+4. Only extract claims that are:
+   - Directly supported by the text
+   - Medically or scientifically relevant
+   - Specific enough to be verifiable
+
+-Examples-
+("claim"<|>SEPSIS<|>EARLY ANTIBIOTIC ADMINISTRATION<|>treatment_outcome<|>established<|>Early antibiotic administration within 1 hour of sepsis diagnosis significantly reduces mortality rates in emergency department patients)
+("claim"<|>CHEST PAIN<|>TROPONIN ELEVATION<|>diagnostic_finding<|>established<|>Elevated troponin levels in patients with chest pain are highly specific for myocardial injury and acute coronary syndrome)
+
+-Real Data-
+Text: {input_text}

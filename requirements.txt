@@ -1,0 +1,48 @@
+# EMARAG-GraphRAG: Clinical-Enhanced Emergency Medicine RAG
+# Main dependencies for clinical RAG system with GraphRAG integration
+
+# Core GraphRAG
+graphrag>=0.2.4
+
+# Clinical AI Models for Medical Domain
+sentence-transformers>=2.7.0
+transformers>=4.30.0
+torch>=2.0.0
+
+# Medical spaCy Models for Clinical NLP
+spacy>=3.7.0
+scispacy>=0.5.1
+
+# Web Interface and APIs
+gradio>=4.44.0
+openai>=1.40.0
+requests>=2.31.0
+
+# Vector Search and Embeddings
+faiss-cpu>=1.8.0
+numpy>=1.24.0,<2.0.0  # Compatibility constraint for GraphRAG
+
+# Document Processing
+pypdf>=4.0.0
+python-dotenv>=1.0.0
+
+# Data Processing
+pandas>=2.0.0
+pyyaml>=6.0.0
+
+# Graph Processing and Visualization
+networkx>=3.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Text Processing
+tiktoken>=0.5.0
+textstat>=0.7.0
+
+# Optional: Enhanced visualization (uncomment if needed)
+# plotly>=5.15.0
+# pyvis>=0.3.2
+
+# Clinical spaCy models (install separately)
+# https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.1/en_core_sci_sm-0.5.1.tar.gz
+# https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.1/en_ner_bc5cdr_md-0.5.1.tar.gz

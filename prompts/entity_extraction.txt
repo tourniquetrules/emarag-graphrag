@@ -1,0 +1,41 @@
+-Goal-
+Given a text document that is potentially relevant to this activity and a list of entity types, identify all entities of those types from the text and all relationships among the identified entities.
+
+-Steps-
+1. Identify all entities. For each identified entity, extract the following information:
+- entity_name: Name of the entity, capitalized
+- entity_type: One of the following types: [organization,person,geo,event,medical_condition,treatment,medication,symptom,anatomy,pathogen]
+- entity_description: Comprehensive description of the entity's attributes and activities
+Format each entity as ("entity"<|><entity_name><|><entity_type><|><entity_description>)
+
+2. From the entities identified in step 1, identify all pairs of (source_entity, target_entity) that are *clearly related* to each other.
+For each pair of related entities, extract the following information:
+- source_entity: name of the source entity, as identified in step 1
+- target_entity: name of the target entity, as identified in step 1
+- relationship_description: explanation of why you think the source entity and the target entity are related to each other
+- relationship_strength: a numeric score between 1 to 10, indicating strength of the relationship between the source entity and target entity
+Format each relationship as ("relationship"<|><source_entity><|><target_entity><|><relationship_description><|><relationship_strength>)
+
+3. Return output in English as a single list of all the entities and relationships identified in steps 1 and 2. Use **##** as the list delimiter.
+
+4. When finished, output <|COMPLETE|>
+
+-Examples-
+##
+("entity"<|>MYOCARDIAL INFARCTION<|>medical_condition<|>A heart attack caused by blockage of blood flow to the heart muscle, requiring immediate emergency treatment)
+##
+("entity"<|>ASPIRIN<|>medication<|>An antiplatelet medication commonly used in emergency treatment of heart attacks to prevent blood clotting)
+##
+("entity"<|>CHEST PAIN<|>symptom<|>A common presenting symptom in emergency medicine that can indicate various cardiac, pulmonary, or other conditions)
+##
+("entity"<|>EMERGENCY DEPARTMENT<|>organization<|>Hospital unit specialized in providing immediate medical care for urgent and life-threatening conditions)
+##
+("relationship"<|>MYOCARDIAL INFARCTION<|>CHEST PAIN<|>Chest pain is a primary symptom of myocardial infarction<|>9)
+##
+("relationship"<|>ASPIRIN<|>MYOCARDIAL INFARCTION<|>Aspirin is a first-line treatment for myocardial infarction<|>8)
+##
+<|COMPLETE|>
+
+-Real Data-
+Use the following input for your answer.
+Text: {input_text}
